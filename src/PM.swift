@@ -43,8 +43,8 @@ public struct PowerManagement {
 
     /// Reads the currently active PM configuration.
     ///
-    /// - Throws: `Error` on failure.
-    public static func current() throws(Error) -> PowerManagement {
+    /// - Throws: `PlatformError` on failure.
+    public static func current() throws(PlatformError) -> PowerManagement {
         var cfg = esp_pm_config_t()
         try esp_pm_get_configuration(&cfg)
             .throwEspError {
@@ -56,8 +56,8 @@ public struct PowerManagement {
 
     /// Applies this configuration.
     ///
-    /// - Throws: `Error` on failure.
-    public func apply() throws(Error) {
+    /// - Throws: `PlatformError` on failure.
+    public func apply() throws(PlatformError) {
         var cfg = esp_pm_config_t(max_freq_mhz: maxFreqMhz, min_freq_mhz: minFreqMhz,
                                    light_sleep_enable: lightSleepEnable)
         try esp_pm_configure(&cfg)
@@ -70,8 +70,8 @@ public struct PowerManagement {
     /// Preserves whatever `maxFreqMhz`/`minFreqMhz` `CONFIG_PM_ENABLE`'s auto-init already set —
     /// only changes the one field auto-init doesn't set.
     ///
-    /// - Throws: `Error` on failure.
-    public static func enableLightSleep() throws(Error) {
+    /// - Throws: `PlatformError` on failure.
+    public static func enableLightSleep() throws(PlatformError) {
         var cfg = try current()
         cfg.lightSleepEnable = true
         try cfg.apply()
