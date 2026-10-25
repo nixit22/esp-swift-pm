@@ -30,8 +30,8 @@ let package = Package(
         .library(name: "PM", targets: ["PM"]),
     ],
     dependencies: [
-        .package(url: "https://github.com/nixit22/esp-swift-support.git", branch: "SPM"),
-        .package(url: "https://github.com/nixit22/esp-swift-platform.git", branch: "SPM"),
+        .package(url: "https://github.com/nixit22/esp-swift-support.git", from: "0.1.0"),
+        .package(url: "https://github.com/nixit22/esp-swift-platform.git", from: "0.1.0"),
     ],
     targets: [
         // include/ESP_PM/ESP_PM.h is the umbrella header: SwiftPM generates the module map.
