@@ -8,9 +8,9 @@ Depends on: `SwiftPlatform`, `SwiftSupport`, `esp_pm`
 
 | File | Role |
 |---|---|
-| `src/PM.swift` | `@_exported import ESP_PM` re-exports the raw C API; also defines `PowerManagement`, a plain struct mirroring `esp_pm_config_t` |
-| `src/pm.c` / `src/pm.h` | Thin C wrapper — only `#include <esp_pm.h>` |
-| `module.modulemap` | Clang module `ESP_PM` — umbrella over `src/pm.h` |
+| `Sources/PM/PM.swift` | `@_exported import ESP_PM` re-exports the raw C API; also defines `PowerManagement`, a plain struct mirroring `esp_pm_config_t` |
+| `Sources/ESP_PM/pm.c` / `Sources/ESP_PM/include/ESP_PM/ESP_PM.h` | Thin C wrapper — only `#include <esp_pm.h>` |
+| `Package.swift` | SwiftPM package: C target `ESP_PM` (module map generated from `include/ESP_PM/ESP_PM.h`, the former `ESP_PM/ESP_PM.h`) and Swift target `PM` |
 
 ## Public API
 
@@ -56,6 +56,6 @@ all, matching the requirement that drove building this component instead of call
 `esp_pm_configure`, `esp_pm_get_configuration`, etc. with a single `import PM`, though the
 typical caller only needs `PowerManagement` itself.
 
-**No runtime logic in C glue** — `pm.c` is empty except for `#include "pm.h"`. It exists
+**No runtime logic in C glue** — `pm.c` is empty except for `#include "ESP_PM/ESP_PM.h"`. It exists
 solely so the component has a C compilation unit (required by ESP-IDF component
 registration), same as `esp-swift-nvs`/`esp-swift-ledc`.
