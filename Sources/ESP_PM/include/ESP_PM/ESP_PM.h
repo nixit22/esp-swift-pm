@@ -21,3 +21,4 @@
  */
 
 #include <esp_pm.h>
+#include <esp_sleep.h>

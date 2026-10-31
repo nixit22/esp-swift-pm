@@ -76,4 +76,18 @@ public struct PowerManagement {
         cfg.lightSleepEnable = true
         try cfg.apply()
     }
+
+    /// Enables GPIO as a light-sleep wakeup source (`esp_sleep_enable_gpio_wakeup`).
+    ///
+    /// This is the global switch only. Each wake pin must also be armed with a level trigger,
+    /// through `Gpio.enableWakeup(intrType:)` (`gpio_wakeup_enable`). Light sleep only: deep sleep
+    /// has its own wakeup APIs.
+    ///
+    /// - Throws: `PlatformError` on failure.
+    public static func enableGpioWakeup() throws(PlatformError) {
+        try esp_sleep_enable_gpio_wakeup()
+            .throwEspError {
+                log.w("esp_sleep_enable_gpio_wakeup failed: \($0.name)")
+            }
+    }
 }
